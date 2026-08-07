@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wholesale Slippers & Sandals - Your Profit Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --gold: #ffd700;
+            --success: #00c853;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 1000px;
+            min-height: 1414px; /* A4 ratio */
+            background: white;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+            position: relative;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233,69,96,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cover-badge {
+            background: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover h1 span {
+            color: var(--accent);
+        }
+
+        .cover-subtitle {
+            font-size: 22px;
+            opacity: 0.9;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-stats {
+            display: flex;
+            gap: 60px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-stat {
+            text-align: center;
+        }
+
+        .cover-stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .cover-stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .cover-products {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-product {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* ===== PROFIT CALCULATOR PAGE ===== */
+        .profit-page {
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .profit-calculator {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 30px;
+            padding: 50px;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profit-calculator::before {
+            content: '💰';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 80px;
+            opacity: 0.2;
+        }
+
+        .profit-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .profit-item {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+        }
+
+        .profit-item-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profit-item-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+        }
+
+        .profit-item-value.cost { color: #ff6b6b; }
+        .profit-item-value.price { color: #4ecdc4; }
+        .profit-item-value.profit { color: var(--gold); }
+
+        .profit-highlight {
+            background: linear-gradient(90deg, var(--accent), #ff6b9d);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profit-highlight-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .profit-highlight-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 64px;
+            font-weight: 800;
+        }
+
+        .profit-highlight-note {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* Wholesale tiers */
+        .wholesale-tiers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tier-card.featured {
+            background: linear-gradient(135deg, var(--accent), #ff6b9d);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .tier-qty {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .tier-price {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .tier-card.featured .tier-price {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .tier-note {
+            font-size: 13px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .tier-card.featured .tier-note {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        /* ===== WHY US PAGE ===== */
+        .why-page {
+            background: #ffffff;
+            padding: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid #eee;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(233,69,96,0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent), #ff6b9d);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .feature-content p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== PRODUCT SHOWCASE PAGE ===== */
+        .product-page {
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 60px;
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-moq {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .product-moq span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== CTA PAGE ===== */
+        .cta-page {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .cta-features {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .cta-feature {
+            text-align: center;
+        }
+
+        .cta-feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .cta-feature-text {
+            font-size: 16px;
+        }
+
+        .cta-button {
+            background: linear-gradient(90deg, var(--accent), #ff6b9d);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(233,69,96,0.4);
+        }
+
+        .cta-contact {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .page {
+                page-break-after: always;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page">
+    <div class="cover">
+        <div class="cover-badge">🔥 Hot Selling • Wholesale Direct</div>
+        <h1>让每一双鞋<br><span>帮你赚更多</span></h1>
+        <p class="cover-subtitle">YOUR PROFIT PARTNER IN FOOTWEAR WHOLESALE</p>
+        
+        <div class="cover-stats">
+            <div class="cover-stat">
+                <div class="cover-stat-value">$3.5</div>
+                <div class="cover-stat-label">采购成本 / 双</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">$29.99</div>
+                <div class="cover-stat-label">美国零售价</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">756%</div>
+                <div class="cover-stat-label">利润空间</div>
+            </div>
+        </div>
+
+        <div class="cover-products">
+            <img src="images/2.jpg" alt="Casual Slippers" class="cover-product">
+            <img src="images/3.jpg" alt="Beach Sandals" class="cover-product">
+            <img src="images/0.jpg" alt="Fashion Slippers" class="cover-product">
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 2: PROFIT CALCULATOR -->
+<div class="page">
+    <div class="profit-page">
+        <div class="page-header">
+            <h2>💵 利润空间测算</h2>
+            <p>每一双鞋，都能为你创造可观利润</p>
+        </div>
+
+        <div class="profit-calculator">
+            <div class="profit-title">单双利润分析 (以 US Amazon 为例)</div>
+            
+            <div class="profit-grid">
+                <div class="profit-item">
+                    <div class="profit-item-label">你的采购成本</div>
+                    <div class="profit-item-value cost">$3.50</div>
+                </div>
+                <div class="profit-item">
+                    <div class="profit-item-label">美国零售价</div>
+                    <div class="profit-item-value price">$29.99</div>
+                </div>
+                <div class="profit-item">
+                    <div class="profit-item-label">单双利润</div>
+                    <div class="profit-item-value profit">$26.49</div>
+                </div>
+            </div>
+
+            <div class="profit-highlight">
+                <div class="profit-highlight-label">毛利率高达</div>
+                <div class="profit-highlight-value">88.3%</div>
+                <div class="profit-highlight-note">远超行业平均水平，竞争力领先同行</div>
+            </div>
+        </div>
+
+        <div class="page-header" style="margin-top: 40px;">
+            <h2>📦 起订量阶梯价格</h2>
+            <p>灵活备货，降低风险</p>
+        </div>
+
+        <div class="wholesale-tiers">
+            <div class="tier-card">
+                <div class="tier-qty">500双</div>
+                <div class="tier-price">$3.50 / 双</div>
+                <div class="tier-note">最低起订量</div>
+            </div>
+            <div class="tier-card featured">
+                <div class="tier-qty">1000双+</div>
+                <div class="tier-price">更优价格</div>
+                <div class="tier-note">🎁 免费样品</div>
+            </div>
+            <div class="tier-card">
+                <div class="tier-qty">5000双+</div>
+                <div class="tier-price">劲爆价格</div>
+                <div class="tier-note">批量优惠</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 3: WHY CHOOSE US -->
+<div class="page">
+    <div class="why-page">
+        <div class="page-header">
+            <h2>🏆 为什么选择我们</h2>
+            <p>专业 · 稳定 · 高效</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏭</div>
+                <div class="feature-content">
+                    <h3>日产2000双</h3>
+                    <p>自有工厂，产能充足，确保按时交付。大单小单，统统搞定。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <div class="feature-content">
+                    <h3>交期稳定</h3>
+                    <p>成熟的生产流程和完善的供应链管理，准时率98%以上。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <div class="feature-content">
+                    <h3>1000双起免费样品</h3>
+                    <p>订单满1000双，免费提供样品，让你卖得放心。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <div class="feature-content">
+                    <h3>品质保证</h3>
+                    <p>严格的质量控制体系，每一双鞋都经过多重检验。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <div class="feature-content">
+                    <h3>一件代发</h3>
+                    <p>支持FBA直发，Amazon、Walmart、eBay全平台服务。</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <div class="feature-content">
+                    <h3>专属客服</h3>
+                    <p>一对一专属服务，7×24小时在线，及时响应你的需求。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 4: PRODUCT SHOWCASE -->
+<div class="page">
+    <div class="product-page">
+        <div class="page-header">
+            <h2>👟 热销产品展示</h2>
+            <p>多款时尚舒适拖鞋/凉鞋，满足北美市场需求</p>
+        </div>
+
+        <div class="product-showcase">
+            <div class="product-card">
+                <img src="images/2.jpg" alt="Casual Slippers" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">经典居家拖鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/3.jpg" alt="Beach Sandals" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">沙滩凉鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/0.jpg" alt="Fashion Slippers" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">时尚毛绒拖鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/5.jpg" alt="Indoor Slippers" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">室内毛绒鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/4.jpg" alt="Comfort Slippers" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">舒适棉拖鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="images/1.jpg" alt="Casual Sandals" class="product-image">
+                <div class="product-info">
+                    <div class="product-name">休闲凉拖鞋</div>
+                    <div class="product-moq">MOQ: <span>500双</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 5: CTA -->
+<div class="page">
+    <div class="cta-page">
+        <div class="cta-title">🚀 立即开始你的赚钱之旅</div>
+        <div class="cta-subtitle">
+            加入我们，用极具竞争力的价格和稳定的质量，<br>
+            在北美市场赢得先机
+        </div>
+
+        <div class="cta-features">
+            <div class="cta-feature">
+                <div class="cta-feature-icon">📞</div>
+                <div class="cta-feature-text">专属客服对接</div>
+            </div>
+            <div class="cta-feature">
+                <div class="cta-feature-icon">📋</div>
+                <div class="cta-feature-text">免费产品目录</div>
+            </div>
+            <div class="cta-feature">
+                <div class="cta-feature-icon">🎁</div>
+                <div class="cta-feature-text">免费样品支持</div>
+            </div>
+        </div>
+
+        <a href="https://wa.me/8613559512899?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20your%20slipper%20products" target="_blank" rel="noopener" class="cta-button" style="text-decoration:none; display:inline-block;">📩 发送询盘 / SEND INQUIRY</a>
+
+        <div class="cta-contact">
+            <p>Email: <a href="mailto:info@cozy-foot.com" style="color:#FFD23F;">info@cozy-foot.com</a> | WhatsApp: <a href="https://wa.me/8613559512899" style="color:#FFD23F;">+86 13559512899</a></p>
+            <p style="margin-top: 10px;">We speak English, 中文 / Español available!</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
