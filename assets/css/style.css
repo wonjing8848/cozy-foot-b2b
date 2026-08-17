@@ -190,6 +190,20 @@ small { font-size: 0.8rem; }
 .cat-card.feature { grid-row: span 2; }
 @media (max-width: 880px) { .cat-grid { grid-template-columns: 1fr 1fr; height: auto; } .cat-card.feature { grid-row: auto; grid-column: span 2; } .cat-card { aspect-ratio: 1/1; } }
 
+/* ---------- Seasonal strip (4-equal cards, used on homepage + seasonal page) ---------- */
+.seasonal-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.seasonal-card { position: relative; border-radius: var(--rad-lg); overflow: hidden; background: var(--c-cream-deep); display: flex; flex-direction: column; transition: transform .35s var(--ease); border: 1px solid var(--c-line); }
+.seasonal-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -20px rgba(31,72,66,.25); border-color: var(--c-pine); }
+.seasonal-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.seasonal-card-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.seasonal-card-body h3 { font-family: var(--f-display); font-weight: 500; font-size: 1.2rem; margin: 0; }
+.seasonal-card-body p { font-size: 0.88rem; color: var(--c-ink-soft); margin: 0; line-height: 1.5; }
+.seasonal-tag { font-family: var(--f-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-coral); padding: 4px 10px; background: rgba(231,111,81,.08); border-radius: var(--rad-pill); align-self: flex-start; }
+.seasonal-card .cat-cta { position: static; align-self: flex-start; margin-top: auto; opacity: 1; transform: none; background: transparent; color: var(--c-pine); padding: 6px 0; font-size: 0.85rem; font-weight: 500; border-radius: 0; border-bottom: 1.5px solid var(--c-coral); }
+.seasonal-card:hover .cat-cta { background: transparent; color: var(--c-coral); }
+@media (max-width: 880px) { .seasonal-strip { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .seasonal-strip { grid-template-columns: 1fr; } }
+
 /* ---------- Trust data row ---------- */
 .data-row { background: var(--c-pine); color: var(--c-cream); border-radius: var(--rad-lg); padding: clamp(40px, 5vw, 60px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
 .data-row .item { border-left: 2px solid rgba(255,255,255,.18); padding-left: 22px; }

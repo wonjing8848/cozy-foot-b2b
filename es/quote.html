@@ -37,7 +37,7 @@
   <!-- Performance: Preconnect to Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="../assets/css/style.css" />
 
   <!-- ===== Schema.org Structured Data ===== -->
@@ -389,6 +389,35 @@
 
   <script src="../assets/js/main.js"></script>
   <script>
+    // === URL param prefill (service=oem, category=seasonal/valentine/halloween/christmas/custom) ===
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const service = params.get('service');
+      const category = params.get('category');
+      if (!service && !category) return;
+      const labels = {
+        seasonal: 'Colección de temporada (varias)',
+        valentine: 'Colección San Valentín',
+        halloween: 'Colección Halloween',
+        christmas: 'Colección Navidad y Fiestas',
+        'year-round': 'Colección Cute Todo el Año',
+        custom: 'Bordado personalizado (mi propio diseño)',
+        oem: 'Fabricación OEM',
+        gift: 'Sets de regalo',
+        promo: 'Promocional con logo'
+      };
+      const lines = [];
+      if (service && labels[service]) lines.push('Servicio: ' + labels[service]);
+      if (category && labels[category]) lines.push('Categoría: ' + labels[category]);
+      if (lines.length === 0) return;
+      const msg = document.querySelector('textarea[name=message]');
+      if (msg && !msg.value.trim()) {
+        msg.value = lines.join('\n') + '\n\n';
+        msg.focus();
+        msg.setSelectionRange(msg.value.length, msg.value.length);
+      }
+    })();
+
     // Formspree AJAX submit + inline success card
     (function() {
       const form = document.getElementById('quoteForm');
