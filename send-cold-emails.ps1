@@ -5,7 +5,7 @@ $apiToken = "mlsn.d3533824285f6068046737fe9ecf7aef7e2aa2904287a8cc92b3a664573df1
 
 # ===== Config =====
 $csvPath = ".\send-today.csv"
-$delaySeconds = 45
+$delaySeconds = 0
 $dryRun = $false
 $nonInteractive = $true
 
@@ -117,8 +117,8 @@ foreach ($contact in $contacts) {
             name  = "Cozy Foot"
         }
         subject = $subject
-        text    = $body
-        html    = ($body -replace "`n", "<br>")
+        text    = $body + "`n`n[Image: https://sc04.alicdn.com/kf/Aa7128ddab2bd4020b8262b6b74c116994.jpg]"
+        html    = ($body -replace "`n", "<br>") + "<br><br><img src='https://sc04.alicdn.com/kf/Aa7128ddab2bd4020b8262b6b74c116994.jpg' style='max-width:100%;height:auto;' />"
     } | ConvertTo-Json -Depth 10
 
     try {

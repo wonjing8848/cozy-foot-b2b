@@ -1,0 +1,5 @@
+# Local Netlify folder
+.netlify
+
+# Catalog tool dependencies (regenerate with `npm install` in catalog/)
+catalog/node_modules/
