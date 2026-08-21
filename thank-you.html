@@ -144,6 +144,18 @@
 
   <script src="assets/js/main.js"></script>
 
+  <!-- Meta Pixel Lead conversion (fires when user lands on thank-you after submit) -->
+  <script>
+  // Only fire if user came from quote form (avoid double counting direct visits)
+  if (document.referrer.includes('/quote') || sessionStorage.getItem('cf_lead_fired') !== '1') {
+    fbq('track', 'Lead', {
+      content_name: 'Quote Request Completed',
+      content_category: 'B2B Inquiry'
+    });
+    sessionStorage.setItem('cf_lead_fired', '1');
+  }
+  </script>
+
   <!-- WhatsApp Floating Action Button -->
   <a href="https://wa.me/8613559512899?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20slipper%20project" target="_blank" rel="noopener" class="wa-fab" aria-label="Chat on WhatsApp">
     <span class="wa-fab-label">Chat on WhatsApp</span>

@@ -316,7 +316,7 @@
       }
     })();
 
-    // === Formspree AJAX submit + inline success card ===
+    // === Formspree AJAX submit + redirect to thank-you page ===
     (function() {
       const form = document.getElementById('quoteForm');
       if (!form) return;
@@ -326,7 +326,11 @@
         const submitBtn = form.querySelector('button[type=submit]');
         const originalText = submitBtn.textContent;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending→;
+        submitBtn.textContent = 'Sending...';
+
+        // Show inline success card immediately (visual feedback)
+        const successCard = document.getElementById('successCard');
+        if (successCard) successCard.classList.add('show');
 
         try {
           const response = await fetch(form.action, {
@@ -336,11 +340,8 @@
           });
 
           if (response.ok) {
-            // Success →show the inline success card, scroll to top
-            form.style.display = 'none';
-            const successCard = document.getElementById('successCard');
-            if (successCard) successCard.classList.add('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Success → redirect to branded thank-you page
+            window.location.href = '/thank-you.html';
             return;
           }
 
@@ -348,9 +349,10 @@
           const data = await response.json().catch(() => ({}));
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
+          if (successCard) successCard.classList.remove('show');
           alert('Submission failed: ' + (data.error || 'Unknown error') + '\n\nPlease email us directly at info@cozy-foot.com');
         } catch (err) {
-          // Network error →fall back to native form submit
+          // Network error → let the native form submit happen (with _next fallback)
           form.submit();
         }
       });

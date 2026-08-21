@@ -144,6 +144,17 @@
 
   <script src="../assets/js/main.js"></script>
 
+  <!-- Meta Pixel Lead conversion -->
+  <script>
+  if (document.referrer.includes('/quote') || sessionStorage.getItem('cf_lead_fired') !== '1') {
+    fbq('track', 'Lead', {
+      content_name: 'Quote Request Completed',
+      content_category: 'B2B Inquiry'
+    });
+    sessionStorage.setItem('cf_lead_fired', '1');
+  }
+  </script>
+
   <!-- WhatsApp Floating Action Button -->
   <a href="https://wa.me/8613559512899?text=Hola%2C%20me%20interesa%20fabricar%20pantuflas%20personalizadas" target="_blank" rel="noopener" class="wa-fab" aria-label="Chat en WhatsApp">
     <span class="wa-fab-label">Chat en WhatsApp</span>
