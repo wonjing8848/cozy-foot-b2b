@@ -313,56 +313,32 @@
       }
     })();
 
-    // Formspree AJAX submit + inline success card
+    // === Native form submit → Formspree _next redirect to /es/thank-you.html ===
+    // We do NOT preventDefault. The browser does a normal form POST to Formspree,
+    // which then 302-redirects the user to the _next URL (= our /es/thank-you.html).
+    // This is the most reliable path: no CORS, no ad-blocker, no GFW issues,
+    // no fetch errors. The thank-you page fires the Lead event with dedup.
     (function() {
       const form = document.getElementById('quoteForm');
       if (!form) return;
-
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const submitBtn = form.querySelector('button[type=submit]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando…';
-
-        try {
-          const response = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
+      form.addEventListener('submit', function() {
+        // Pure visual feedback — the form still submits natively.
+        const btn = form.querySelector('button[type=submit]');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Enviando…';
+        }
+        // Fire Lead event now (Fb may not get a chance on the redirect).
+        // thank-you.html uses sessionStorage to dedup, so this only counts once.
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: 'Quote Request',
+            content_category: 'B2B Inquiry'
           });
-
-          if (response.ok) {
-            form.style.display = 'none';
-            const successCard = document.getElementById('successCard');
-            if (successCard) successCard.classList.add('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-          }
-
-          const data = await response.json().catch(() => ({}));
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-          alert('Error al enviar: ' + (data.error || 'Error desconocido') + '\n\nPor favor envíenos un email directamente a info@cozy-foot.com');
-        } catch (err) {
-          form.submit();
+          try { sessionStorage.setItem('cf_lead_fired', '1'); } catch (e) {}
         }
       });
     })();
-  </script>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    if (form) {
-      form.addEventListener('submit', function() {
-        fbq('track', 'Lead', {
-          content_name: 'Quote Request',
-          content_category: 'B2B Inquiry'
-        });
-      });
-    }
-  });
   </script>
 </body>
 </html>
